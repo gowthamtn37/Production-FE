@@ -1,0 +1,11 @@
+.signup-container {
+  max-width: 600px;
+  margin: 100px auto;
+  text-align: center;
+  text-decoration: underline;
+}
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

@@ -1,0 +1,36 @@
+.verify-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.verifyotp-Container {
+  text-align: center;
+  margin: 50px auto;
+  max-width: 400px;
+  padding: 50px;
+}
+
+.verifyotp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.resetpass-container {
+  text-align: center;
+  margin: 0px auto;
+  max-width: 400px;
+  padding: 50px;
+}
+.resetpass-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
