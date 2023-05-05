@@ -17,7 +17,7 @@ export function Login() {
 
   const { values, touched, errors, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: { username: "", password: "" },
+      initialValues: { username: "admin", password: "admin123" },
       validationSchema: formValidationSchema,
       onSubmit: async (user) => {
         console.log(user);
@@ -47,6 +47,15 @@ export function Login() {
   const [alert, setAlert] = useState();
   return (
     <div className="screen-container">
+      <div className="signup-btn">
+        <button
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          SignUp?
+        </button>
+      </div>
       <div className="Login-container">
         <form onSubmit={handleSubmit} className="login-container">
           <div className="login-head-container">
@@ -72,7 +81,7 @@ export function Login() {
               }
             />
             <TextField
-              type="password"
+              type=""
               name="password"
               label="password"
               value={values.password}

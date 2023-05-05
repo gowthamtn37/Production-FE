@@ -57,7 +57,7 @@ export function SignUp() {
           setAlert1("false");
         } else {
           setAlert2("false");
-          navigate("/login");
+          navigate("/");
         }
       },
     });

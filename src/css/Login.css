@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
+  background-color: azure;
 }
 
 .login-container {
@@ -43,5 +44,27 @@
   border-radius: 25px;
   border: none;
   cursor: pointer;
+  background-color: coral;
+}
+
+.signup-btn {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+button {
+  margin: 20px;
+  width: 100px;
+  height: 50px;
+  border-radius: 20px;
+  background-color: beige;
+  border: none;
+}
+
+button:hover {
   background-color: coral;
 }
