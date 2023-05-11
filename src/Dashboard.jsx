@@ -46,6 +46,11 @@ export function Dashboard() {
     <div className="dashboard-container">
       <h1>Dashboard</h1>
 
+      <div className="realtime-data">
+        <h2>Realtime Data</h2>
+        <h2>Updated @ </h2>
+      </div>
+
       <div className="table-container">
         <div className="btn">
           <Button variant="contained" onClick={onDownload}>
