@@ -51,8 +51,6 @@ export function Dashboard() {
     setRealTimeData(data);
   });
   console.log(realTime);
-  // const time = realTime.time.substring(10);
-  // const date = realTime.time.substring(10);
 
   return (
     <div className="dashboard-container">
