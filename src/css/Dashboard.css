@@ -24,6 +24,7 @@
   background-color: aliceblue;
   border: 1px solid black;
   padding: auto;
+  overflow: auto;
 }
 
 .table div {

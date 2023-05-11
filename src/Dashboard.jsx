@@ -45,13 +45,14 @@ export function Dashboard() {
 
   const [realTime, setRealTimeData] = useState([]);
 
-  const socket = io.connect("https://production-data-be.onrender.com");
+  const socket = io.connect(`${API}`);
   socket.on("send_msg", (data) => {
     console.log(data);
     setRealTimeData(data);
   });
-
   console.log(realTime);
+  // const time = realTime.time.substring(10);
+  // const date = realTime.time.substring(10);
 
   return (
     <div className="dashboard-container">
@@ -59,10 +60,7 @@ export function Dashboard() {
 
       <div className="realtime-data">
         <h2>Current Quantity :{realTime.quantity}</h2>
-        <h2>
-          Updated @ : {realTime.time.substring(10)}{" "}
-          {realTime.time.substring(0, 9)}{" "}
-        </h2>
+        <h2>Updated @ : {realTime.time}</h2>
       </div>
 
       <div className="table-container">
