@@ -19,7 +19,15 @@
 }
 
 .table {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
   background-color: aliceblue;
   border: 1px solid black;
-  overflow: auto;
+  padding: auto;
+}
+
+.table div {
+  border: 1px solid black;
+  width: 100%;
+  text-align: center;
 }

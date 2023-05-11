@@ -41,6 +41,7 @@ export function Dashboard() {
     filename: "Users table",
     sheet: "Users",
   });
+
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
@@ -59,26 +60,21 @@ export function Dashboard() {
             Print
           </Button>
         </div>
-        <table className="table table-striped" ref={tableRef}>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Time</th>
-              <th scope="col">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {machine.map((machine, index) => (
-              <tr key={machine._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{machine.prod}</td>
-                <td>{machine.time}</td>
-                <td>{machine.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="table" ref={tableRef}>
+          <div>SL.No</div>
+          <div>QUANTITY</div>
+          <div>TIME</div>
+          <div>DATE</div>
+
+          {machine.map((data, index) => (
+            <>
+              <div>{index + 1}</div>
+              <div>{data.quantity}</div>
+              <div>{data.time.substring(10)}</div>
+              <div>{data.time.substring(0, 9)}</div>
+            </>
+          ))}
+        </div>
       </div>
     </div>
   );
