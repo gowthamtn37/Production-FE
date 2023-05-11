@@ -3,6 +3,7 @@ import { API } from "./Api";
 import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import React, { useRef } from "react";
+import io from "socket.io-client";
 
 import "./css/Dashboard.css";
 import { useDownloadExcel } from "react-export-table-to-excel";
@@ -42,13 +43,26 @@ export function Dashboard() {
     sheet: "Users",
   });
 
+  const [realTime, setRealTimeData] = useState([]);
+
+  const socket = io.connect("https://production-data-be.onrender.com");
+  socket.on("send_msg", (data) => {
+    console.log(data);
+    setRealTimeData(data);
+  });
+
+  console.log(realTime);
+
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
 
       <div className="realtime-data">
-        <h2>Realtime Data</h2>
-        <h2>Updated @ </h2>
+        <h2>Current Quantity :{realTime.quantity}</h2>
+        <h2>
+          Updated @ : {realTime.time.substring(10)}{" "}
+          {realTime.time.substring(0, 9)}{" "}
+        </h2>
       </div>
 
       <div className="table-container">
