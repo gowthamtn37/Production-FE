@@ -45,7 +45,7 @@ export function Dashboard() {
 
   const [realTime, setRealTimeData] = useState([]);
 
-  const socket = io.connect(`${API}`);
+  const socket = io(`${API}`);
   socket.on("send_msg", (data) => {
     console.log(data);
     setRealTimeData(data);
