@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "./Api";
 import { useState } from "react";
+import React from "react";
 
 export function Login() {
   const navigate = useNavigate();
@@ -15,35 +16,40 @@ export function Login() {
     password: yup.string().required(),
   });
 
-  const { values, touched, errors, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: { username: "admin", password: "admin123" },
-      validationSchema: formValidationSchema,
-      onSubmit: async (user) => {
-        console.log(user);
-        // login(user);
-        const data = await fetch(`${API}/users/`, {
-          method: "POST",
-          body: JSON.stringify(user),
-          headers: { "Content-Type": "application/json" },
-        });
+  const {
+    values,
+    touched,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: { username: "admin", password: "admin123" },
+    validationSchema: formValidationSchema,
+    onSubmit: async (user) => {
+      console.log(user);
+      // login(user);
+      const data = await fetch(`${API}/users/`, {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: { "Content-Type": "application/json" },
+      });
 
-        if (data.status === 401) {
-          setAlert("true");
-        } else {
-          setAlert("false");
-          const result = await data.json();
-          //console.log(result);
-          localStorage.setItem("token", result.token);
-          navigate("/dashboard");
-        }
-      },
-    });
+      if (data.status === 401) {
+        setAlert(true);
+      } else {
+        setAlert(false);
+        const result = await data.json();
+        //console.log(result);
+        localStorage.setItem("token", result.token);
+        navigate("/dashboard");
+      }
+    },
+  });
 
   //const login = async (user) => {
   // console.log(user);
   //};
-
   const [alert, setAlert] = useState();
   return (
     <div className="screen-container">
