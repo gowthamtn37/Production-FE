@@ -24,7 +24,6 @@ export function Dashboard() {
   socket.on("send_msg", (res) => {
     setQuantity(res[0].quantity);
     setTime(res[0].time);
-    //urlUpdate();
   });
 
   //console.log(quantity, time);
@@ -38,14 +37,6 @@ export function Dashboard() {
       .catch((error) => console.log(error));
   }, [quantity]);
   //console.log(machine);
-  // function urlUpdate() {
-  //   fetch(`${API}/machine`, {
-  //     headers: { "x-auth-token": localStorage.getItem("token") },
-  //   })
-  //     .then((data) => checkAuth(data))
-  //     .then((data) => setMachine(data))
-  //     .catch((error) => console.log(error));
-  // }
 
   function checkAuth(data) {
     if (data.status === 401) {
