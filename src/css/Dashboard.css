@@ -25,7 +25,7 @@
   border: 1px solid black;
   padding: auto;
   overflow: auto;
-  min-width: 50%;
+  min-width: 25%;
 }
 
 .table div {
@@ -35,7 +35,7 @@
 }
 
 .realtime-data {
-  min-width: 50%;
+  min-width: 25%;
   height: 100px;
   background-color: cadetblue;
 }
