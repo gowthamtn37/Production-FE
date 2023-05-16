@@ -9,6 +9,9 @@ import "./css/Dashboard.css";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { useNavigate } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "./redux/reducer/counterSlice";
+
 export function Dashboard() {
   const [machine, setMachine] = useState([]);
   const navigate = useNavigate();
@@ -58,6 +61,9 @@ export function Dashboard() {
     sheet: "Users",
   });
 
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
@@ -95,6 +101,26 @@ export function Dashboard() {
               <div>{data.time.substring(0, 9)}</div>
             </>
           ))}
+        </div>
+      </div>
+      <div>
+        <div className="redux">
+          <h1> React Redux </h1>
+        </div>
+        <div>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(increment())}
+          >
+            Increment
+          </button>
+          <span>{count}</span>
+          <button
+            aria-label="Decrement value"
+            onClick={() => dispatch(decrement())}
+          >
+            Decrement
+          </button>
         </div>
       </div>
     </div>
