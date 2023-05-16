@@ -13,6 +13,22 @@ export function Dashboard() {
   const [machine, setMachine] = useState([]);
   const navigate = useNavigate();
 
+  // const [realTime, setRealTimeData] = useState([]);
+
+  const socket = io.connect(`${API}`);
+  socket.on("connect", () => {});
+
+  const [quantity, setQuantity] = useState();
+  const [time, setTime] = useState();
+
+  socket.on("send_msg", (res) => {
+    setQuantity(res[0].quantity);
+    setTime(res[0].time);
+    //urlUpdate();
+  });
+
+  //console.log(quantity, time);
+
   useEffect(() => {
     fetch(`${API}/machine`, {
       headers: { "x-auth-token": localStorage.getItem("token") },
@@ -20,8 +36,16 @@ export function Dashboard() {
       .then((data) => checkAuth(data))
       .then((data) => setMachine(data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [quantity]);
   //console.log(machine);
+  // function urlUpdate() {
+  //   fetch(`${API}/machine`, {
+  //     headers: { "x-auth-token": localStorage.getItem("token") },
+  //   })
+  //     .then((data) => checkAuth(data))
+  //     .then((data) => setMachine(data))
+  //     .catch((error) => console.log(error));
+  // }
 
   function checkAuth(data) {
     if (data.status === 401) {
@@ -43,22 +67,13 @@ export function Dashboard() {
     sheet: "Users",
   });
 
-  const [realTime, setRealTimeData] = useState([]);
-
-  const socket = io(`${API}`);
-  socket.on("send_msg", (data) => {
-    console.log(data);
-    setRealTimeData(data);
-  });
-  console.log(realTime);
-
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
 
       <div className="realtime-data">
-        <h2>Current Quantity :{realTime.quantity}</h2>
-        <h2>Updated @ : {realTime.time}</h2>
+        <h2>Current Quantity :{quantity}</h2>
+        <h2>Updated @ : {time}</h2>
       </div>
 
       <div className="table-container">
