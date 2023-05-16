@@ -62,12 +62,12 @@ export function Dashboard() {
     <div className="dashboard-container">
       <h1>Dashboard</h1>
 
-      <div className="realtime-data">
-        <h2>Current Quantity :{quantity}</h2>
-        <h2>Updated @ : {time}</h2>
-      </div>
-
       <div className="table-container">
+        <div className="realtime-data">
+          <h2>Current Quantity :{quantity}</h2>
+          <h2>Updated @ : {time}</h2>
+        </div>
+
         <div className="btn">
           <Button variant="contained" onClick={onDownload}>
             Excel
