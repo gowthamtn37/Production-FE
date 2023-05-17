@@ -4,19 +4,17 @@ import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import React, { useRef } from "react";
 import io from "socket.io-client";
-
 import "./css/Dashboard.css";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { useNavigate } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "./redux/reducer/counterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { create } from "./features/productSlice";
 
 export function Dashboard() {
+  const dispatch = useDispatch();
+
   const [machine, setMachine] = useState([]);
   const navigate = useNavigate();
-
-  // const [realTime, setRealTimeData] = useState([]);
 
   const socket = io.connect(`${API}`);
   socket.on("connect", () => {});
@@ -29,8 +27,6 @@ export function Dashboard() {
     setTime(res[0].time);
   });
 
-  //console.log(quantity, time);
-
   useEffect(() => {
     fetch(`${API}/machine`, {
       headers: { "x-auth-token": localStorage.getItem("token") },
@@ -39,7 +35,6 @@ export function Dashboard() {
       .then((data) => setMachine(data))
       .catch((error) => console.log(error));
   }, [quantity]);
-  //console.log(machine);
 
   function checkAuth(data) {
     if (data.status === 401) {
@@ -61,8 +56,12 @@ export function Dashboard() {
     sheet: "Users",
   });
 
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(create(machine));
+  }, [quantity]);
+
+  const product = useSelector((state) => state.product.data);
+  // console.log(product);
 
   return (
     <div className="dashboard-container">
@@ -93,7 +92,7 @@ export function Dashboard() {
           <div>TIME</div>
           <div>DATE</div>
 
-          {machine.map((data, index) => (
+          {product.map((data, index) => (
             <>
               <div>{index + 1}</div>
               <div>{data.quantity}</div>
@@ -101,26 +100,6 @@ export function Dashboard() {
               <div>{data.time.substring(0, 9)}</div>
             </>
           ))}
-        </div>
-      </div>
-      <div>
-        <div className="redux">
-          <h1> React Redux </h1>
-        </div>
-        <div>
-          <button
-            aria-label="Increment value"
-            onClick={() => dispatch(increment())}
-          >
-            Increment
-          </button>
-          <span>{count}</span>
-          <button
-            aria-label="Decrement value"
-            onClick={() => dispatch(decrement())}
-          >
-            Decrement
-          </button>
         </div>
       </div>
     </div>
