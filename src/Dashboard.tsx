@@ -22,7 +22,7 @@ export function Dashboard() {
   const [quantity, setQuantity] = useState();
   const [time, setTime] = useState();
 
-  socket.on("send_msg", (res) => {
+  socket.on("send_msg", (res: any) => {
     setQuantity(res[0].quantity);
     setTime(res[0].time);
   });
@@ -36,7 +36,7 @@ export function Dashboard() {
       .catch((error) => console.log(error));
   }, [quantity]);
 
-  function checkAuth(data) {
+  function checkAuth(data: any) {
     if (data.status === 401) {
       throw new Error("protected");
     } else {
@@ -62,6 +62,12 @@ export function Dashboard() {
 
   const product = useSelector((state) => state.product.data);
   // console.log(product);
+
+  interface Data {
+    _id: any;
+    quantity: number;
+    time: string;
+  }
 
   return (
     <div className="dashboard-container">
@@ -92,7 +98,7 @@ export function Dashboard() {
           <div>TIME</div>
           <div>DATE</div>
 
-          {product.map((data, index) => (
+          {product.map((data: Data, index: Number) => (
             <>
               <div>{index + 1}</div>
               <div>{data.quantity}</div>

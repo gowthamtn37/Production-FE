@@ -1,4 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+interface Data {
+  _id: any;
+  quantity: number;
+  time: string;
+}
 export const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -10,10 +16,7 @@ export const productSlice = createSlice({
       const data = action.payload;
 
       if (data) {
-        data.map((item) => {
-          //console.log(item);
-          state.data.push(item);
-        });
+        data.map((item: Data) => state.data.push(item));
 
         //
       }

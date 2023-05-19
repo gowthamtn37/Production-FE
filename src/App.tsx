@@ -1,12 +1,11 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./Login";
 import { ForgetPassword } from "./ForgetPassword";
 import { VerifyOTP } from "./VerifyOTP";
 import { SignUp } from "./SignUp";
-
-import "./css/App.css";
 import { Dashboard } from "./Dashboard";
-import React from "react";
+import "./css/App.css";
 
 function App() {
   return (

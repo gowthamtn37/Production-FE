@@ -9,26 +9,36 @@ import "./css/VerifyOTP.css";
 
 export function VerifyOTP() {
   const formValidationSchema = yup.object({
-    OTP: yup.string().required().min(6).max(6),
+    OTP: yup
+      .string()
+      .required()
+      .min(6)
+      .max(6),
   });
-  const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: { OTP: "" },
-      validationSchema: formValidationSchema,
-      onSubmit: async (OTP) => {
-        //console.log(OTP);
-        const data = await fetch(`${API}/users/verify`, {
-          method: "POST",
-          body: JSON.stringify(OTP),
-          headers: { "Content-Type": "application/json" },
-        });
-        if (data.status === 200) {
-          setAlert1("true");
-        } else {
-          setAlert1("false");
-        }
-      },
-    });
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: { OTP: "" },
+    validationSchema: formValidationSchema,
+    onSubmit: async (OTP) => {
+      //console.log(OTP);
+      const data = await fetch(`${API}/users/verify`, {
+        method: "POST",
+        body: JSON.stringify(OTP),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (data.status === 200) {
+        setAlert1("true");
+      } else {
+        setAlert1("false");
+      }
+    },
+  });
   const [Alert1, setAlert1] = useState("false");
   return (
     <div className="screen-container">
@@ -60,32 +70,48 @@ function ResetPassword() {
   const navigate = useNavigate();
   //console.log(OTP);
   const formValidationSchema = yup.object({
-    password: yup.string().min(6).required(),
+    password: yup
+      .string()
+      .min(6)
+      .required(),
     confirm_password: yup
       .string()
       .oneOf([yup.ref("password")], "Password must match")
       .min(6)
       .required(),
-    OTP: yup.string().required().min(6).max(6),
+    OTP: yup
+      .string()
+      .required()
+      .min(6)
+      .max(6),
   });
-  const { values, touched, errors, handleBlur, handleSubmit, handleChange } =
-    useFormik({
-      initialValues: { password: "", confirm_password: "", OTP: "" },
-      validationSchema: formValidationSchema,
-      onSubmit: async (reset) => {
-        //console.log(reset);
-        delete reset.confirm_password;
-        const data = await fetch(`${API}/users/reset`, {
-          method: "POST",
-          body: JSON.stringify(reset),
-          headers: { "Content-Type": "application/json" },
-        });
-        if (data.status === 200) {
-          alert("Successfully Password reseted!!");
-          navigate("/");
-        }
-      },
-    });
+
+  const {
+    values,
+    touched,
+    errors,
+    handleBlur,
+    handleSubmit,
+    handleChange,
+  } = useFormik({
+    initialValues: { password: "", confirm_password: "", OTP: "" },
+    validationSchema: formValidationSchema,
+
+    onSubmit: async (reset) => {
+      //console.log(reset);
+      delete reset.confirm_password;
+
+      const data = await fetch(`${API}/users/reset`, {
+        method: "POST",
+        body: JSON.stringify(reset),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (data.status === 200) {
+        alert("Successfully Password reseted!!");
+        navigate("/");
+      }
+    },
+  });
 
   return (
     <div className="resetpass-container">

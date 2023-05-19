@@ -50,7 +50,7 @@ export function Login() {
   //const login = async (user) => {
   // console.log(user);
   //};
-  const [alert, setAlert] = useState();
+  const [alert, setAlert] = useState<boolean>();
   return (
     <div className="screen-container">
       <div className="signup-btn">
@@ -66,7 +66,7 @@ export function Login() {
         <form onSubmit={handleSubmit} className="login-container">
           <div className="login-head-container">
             <h2>Login</h2>
-            {alert === "true" ? (
+            {alert ? (
               <div>
                 <h2 className="login-head">Invalid Credential</h2>
               </div>
