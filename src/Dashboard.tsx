@@ -16,13 +16,13 @@ export function Dashboard() {
   const [machine, setMachine] = useState([]);
   const navigate = useNavigate();
 
-  const socket = io.connect(`${API}`);
+  const socket = io(`${API}`);
   socket.on("connect", () => {});
 
   const [quantity, setQuantity] = useState();
   const [time, setTime] = useState();
 
-  socket.on("send_msg", (res: any) => {
+  socket.on("send_msg", (res) => {
     setQuantity(res[0].quantity);
     setTime(res[0].time);
   });
@@ -36,7 +36,7 @@ export function Dashboard() {
       .catch((error) => console.log(error));
   }, [quantity]);
 
-  function checkAuth(data: any) {
+  function checkAuth(data: Response) {
     if (data.status === 401) {
       throw new Error("protected");
     } else {
@@ -62,12 +62,6 @@ export function Dashboard() {
 
   const product = useSelector((state) => state.product.data);
   // console.log(product);
-
-  interface Data {
-    _id: any;
-    quantity: number;
-    time: string;
-  }
 
   return (
     <div className="dashboard-container">
@@ -98,14 +92,33 @@ export function Dashboard() {
           <div>TIME</div>
           <div>DATE</div>
 
-          {product.map((data: Data, index: Number) => (
-            <>
-              <div>{index + 1}</div>
-              <div>{data.quantity}</div>
-              <div>{data.time.substring(10)}</div>
-              <div>{data.time.substring(0, 9)}</div>
-            </>
-          ))}
+          {product.map(
+            (
+              data: {
+                quantity:
+                  | string
+                  | number
+                  | boolean
+                  | React.ReactElement<
+                      any,
+                      string | React.JSXElementConstructor<any>
+                    >
+                  | React.ReactFragment
+                  | React.ReactPortal
+                  | null
+                  | undefined;
+                time: string;
+              },
+              index: number
+            ) => (
+              <>
+                <div>{index + 1}</div>
+                <div>{data.quantity}</div>
+                <div>{data.time.substring(10)}</div>
+                <div>{data.time.substring(0, 9)}</div>
+              </>
+            )
+          )}
         </div>
       </div>
     </div>
